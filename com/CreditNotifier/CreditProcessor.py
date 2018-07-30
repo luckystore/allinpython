@@ -9,7 +9,7 @@ gmail_user = "kiranmekanuri@gmail.com"
 gmail_password = "venkeykiran"
 
 FROM = gmail_user
-TO = ["kiranmekanuri@gmail.com"]
+TO = []
 #Subject = "Hello"
 Body = ""
 
@@ -31,35 +31,37 @@ for item in rows:
      email = item[5]
      due_date = due_date[:-3]
 
+     email = ''.join(item[5])
+     TO = [email]
      account_no = ''.join(item[1])
      customer_name = ''.join(item[2])
      due_amount =''.join(item[3])
      due_date = datetime.datetime.fromtimestamp(int(due_date)).strftime('%Y-%m-%d %H:%M:%S')
      print(due_date)
-print(item)
+     print(item)
 
-TEXT = "Regarding Loan Amount - {}".format(fi)+"\n"\
-    "Dear {},".format(customer_name)+ "\n" \
-       "                  This mail from your bank, regarding your loan. " \
-       "Your loan mount is  {}".format(due_amount)+ " " +\
-       "and the due date  {}.".format(due_date)+ " " + "Please keep Funds in your account. " \
-       "Your account number is  {}.".format(account_no)+ "\n" \
-       "                                                                                                                " \
-       "                                                                                                               " \
-       "            Thank you...                                                                                       " \
-       "                                                                                                              " \
-       "                                                {},".format(fi)
+     TEXT = "Regarding Loan Amount - {}".format(fi)+"\n"\
+        "Dear {},".format(customer_name)+ "\n" \
+           "                  This mail from your bank, regarding your loan. " \
+           "Your loan mount is  {}".format(due_amount)+ " " +\
+           "and the due date  {}.".format(due_date)+ " " + "Please keep Funds in your account. " \
+           "Your account number is  {}.".format(account_no)+ "\n" \
+           "                                                                                                                " \
+           "                                                                                                               " \
+           "            Thank you...                                                                                       " \
+           "                                                                                                              " \
+           "                                                {},".format(fi)
 
 
 
-message = """Subject: %s %s
-    """ % (Body, TEXT)
-
-try:
-    server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-    server.ehlo()
-    server.login(gmail_user,gmail_password)
-    server.sendmail(FROM,TO,message)
-    server.close()
-except:
-     print('Something went wrong...')
+     message = """Subject: %s %s
+        """ % (Body, TEXT)
+     print("To Address",TO)
+     try:
+         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+         server.ehlo()
+         server.login(gmail_user,gmail_password)
+         server.sendmail(FROM,TO,message)
+         server.close()
+     except:
+          print('Something went wrong...')
