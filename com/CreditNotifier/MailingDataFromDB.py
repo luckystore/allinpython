@@ -1,12 +1,6 @@
 import smtplib
 import  MySQLdb
 import datetime
-import time
-#epoch = datetime.datetime.utcfromtimestamp(0)
-
-# def unix_time_millis(dt):
-#     return (dt - epoch).total_seconds() * 532490000000
-# print(epoch)
 
 date = ''
 SERVER = "localhost"
@@ -41,10 +35,8 @@ for item in rows:
      customer_name = ''.join(item[2])
      due_amount =''.join(item[3])
      due_date = datetime.datetime.fromtimestamp(int(due_date)).strftime('%Y-%m-%d %H:%M:%S')
-     #due_date = time.ctime(int(due_date))
      print(due_date)
 print(item)
-#print(Body+''.join(item))
 
 TEXT = "Regarding Loan Amount - {}".format(fi)+"\n"\
     "Dear {},".format(customer_name)+ "\n" \
